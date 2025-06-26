@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bus Ticket Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url("");
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .seating-plan {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .seat {
+            width: 50px;
+            height: 50px;
+            background-color: #fbfeff;
+            border-radius: 5px;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .seat.booked {
+            background-color: #9c9494;
+            pointer-events: none;
+        }
+
+        .seat.selected {
+            background-color: #18e43a;
+            color: #fff;
+        }
+
+        .seat:hover {
+            background-color: #fffdfd;
+        }
+
+        .price {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .price span {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>Bus Ticket Booking</h2>
+<form id="bookingForm">
+    <label for="busType">Select Bus Type:</label>
+    <select id="busType" name="busType">
+        <option value="AC">AC</option>
+        <option value="Sleeper">Sleeper</option>
+        <option value="Non-AC">Non-AC</option>
+        <option value="Semi-Sleeper">Semi-Sleeper</option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+<div class="seating-plan" style="display: none;">
+    <!-- Seats will be generated dynamically here -->
+</div>
+
+<div class="price" style="display: none;">
+    Total Price: <span id="totalPrice">₹0</span>
+</div>
+
+<!-- "Book Now" button initially disabled -->
+<button id="bookNowButton" style="display: none;" disabled>Book Now</button>
+
+<script>
+    const seatPrices = {
+        AC: 600,
+        Sleeper: 450,
+        'Non-AC': 350,
+        'Semi-Sleeper': 400
+    };
+
+    // Simulated booked seats
+    const bookedSeats = [2, 5, 10, 15];
+
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        const busType = document.getElementById("busType").value;
+        generateSeatingPlan(busType);
+    });
+
+    function generateSeatingPlan(busType) {
+        const seatingPlan = document.querySelector('.seating-plan');
+        seatingPlan.innerHTML = ''; // Clear previous seating plan
+
+        // Generate seats dynamically based on bus type
+        const totalSeats = busType === 'AC' ? 30 : 35; // Example: AC bus has 30 seats, others have 35
+        for (let i = 1; i <= totalSeats; i++) {
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.textContent = i;
+            if (bookedSeats.includes(i)) {
+                seat.classList.add('booked');
+            } else {
+                seat.addEventListener('click', function() {
+                    toggleSeat(this);
+                });
+            }
+            seatingPlan.appendChild(seat);
+        }
+
+        // Show the seating plan
+        seatingPlan.style.display = 'flex';
+
+        // Show the total price section
+        const totalPrice = document.getElementById('totalPrice');
+        totalPrice.textContent = `₹${calculateTotalPrice(busType)}`;
+        const priceSection = document.querySelector('.price');
+        priceSection.style.display = 'block';
+
+        // Enable the "Book Now" button
+        const bookNowButton = document.getElementById('bookNowButton');
+        bookNowButton.style.display = 'block';
+    }
+
+    function toggleSeat(seat) {
+        if (seat.classList.contains('selected')) {
+            seat.classList.remove('selected');
+        } else {
+            seat.classList.add('selected');
+        }
+
+        // Update total price
+        const totalPrice = document.getElementById('totalPrice');
+        const busType = document.getElementById("busType").value;
+        totalPrice.textContent =` ₹${calculateTotalPrice(busType)}`;
+
+        // Check if any seat is selected, then enable the "Book Now" button
+        const selectedSeats = document.querySelectorAll('.seat.selected').length;
+        const bookNowButton = document.getElementById('bookNowButton');
+        if (selectedSeats > 0) {
+            bookNowButton.disabled = false;
+        } else {
+            bookNowButton.disabled = true;
+        }
+    }
+
+    function calculateTotalPrice(busType) {
+        const selectedSeats = document.querySelectorAll('.seat.selected').length;
+        const seatPrice = seatPrices[busType];
+        return selectedSeats * seatPrice;
+    }
+
+    // Function to handle "Book Now" button click event
+    document.getElementById("bookNowButton").addEventListener("click", function() {
+        // Redirect to another page
+        window.location.href = "payment.html"; // Replace "anotherpage.html" with the desired URL
+    });
+</script>
+</body>
+</html>
