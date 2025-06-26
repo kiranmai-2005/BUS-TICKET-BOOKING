@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background :url("https://c8.alamy.com/comp/2EKG4CM/concept-bus-route-on-the-map-3d-rendering-2EKG4CM.jpg")
+        }
+        form {
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 5px;
+            margin: 10px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            padding: 5px 20px;
+            background-color: #3366ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            padding: 10px;
+            background-color: #f5f5f5;
+            margin: 5px;
+        }
+        .bus-item {
+            padding: 10px;
+            background-color: #f5f5f5;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Check Bus Availability</h1>
+    <form>
+        <label for="from">From:</label>
+        <input type="text" id="from" placeholder="Enter departure city" required>
+        <br>
+        <label for="to">To:</label>
+        <input type="text" id="to" placeholder="Enter destination city" required>
+        <br>
+        <input type="submit" value="Check Availability">
+    </form>
+    <h2>Available Buses:</h2>
+    <ul id="busList">
+        <!-- Bus information will be displayed here --> 
+    </ul>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+
+            // Assuming this is the list of available buses
+            const buses = ['Bus A', 'Bus B', 'Bus C', 'Bus D'];
+
+            const busList = document.getElementById('busList');
+            busList.innerHTML = ''; // Clear previous bus list
+
+            buses.forEach(function(bus) {
+                const li = document.createElement('li');
+                li.classList.add('bus-item');
+                
+                const busInfo = document.createElement('span');
+                busInfo.textContent = `${bus} from ${from} to ${to}`;
+                li.appendChild(busInfo);
+                
+                const selectButton = document.createElement('button');
+                selectButton.textContent = 'Select';
+                selectButton.classList.add('select-button');
+                selectButton.addEventListener('click', function() {
+                    // Navigate to another page when select button is clicked
+                    window.location.href = 'ss.html';
+                });
+                li.appendChild(selectButton);
+                
+                busInfo.style.marginRight= '10px'; // Adding margin to the bus information span
+                busList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
