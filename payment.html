@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://www.shutterstock.com/image-vector/people-sending-receiving-money-wireless-260nw-465600824.jpg"); /* Replace 'background_image.jpg' with the path to your background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            max-width: 400px;
+            background-color: none; /* Adding transparency to the form background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(12, 10, 10, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+            border-color: #060706;
+            transition: border-color 0.3s ease;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #paymentStatus {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form id="paymentForm">
+        <h2>Payment Form</h2>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" required><br><br>
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required><br><br>
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required><br><br>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required><br><br>
+        
+        <!-- Pay Now button initially disabled -->
+        <button type="submit" class="button paynow-button" id="payNowButton" disabled>Pay Now</button>
+    </form>
+
+    <div id="paymentStatus"></div>
+
+    <script>
+        // Function to enable/disable Pay Now button based on form validation
+        function togglePayNowButton() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const amount = document.getElementById('amount').value;
+
+            const payNowButton = document.getElementById('payNowButton');
+            if (cardNumber.trim() !== '' && expiryDate.trim() !== '' && cvv.trim() !== '' && amount.trim() !== '') {
+                payNowButton.disabled = false;
+            } else {
+                payNowButton.disabled = true;
+            }
+        }
+
+        // Event listeners to toggle Pay Now button
+        document.getElementById('cardNumber').addEventListener('input', togglePayNowButton);
+        document.getElementById('expiryDate').addEventListener('input', togglePayNowButton);
+        document.getElementById('cvv').addEventListener('input', togglePayNowButton);
+        document.getElementById('amount').addEventListener('input', togglePayNowButton);
+
+        // Event listener for form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const amount = document.getElementById('amount').value;
+
+            // Simple validation
+            if (cardNumber.trim() === '' || expiryDate.trim() === '' || cvv.trim() === '' || amount.trim() === '') {
+                document.getElementById('paymentStatus').textContent = 'Please fill in all fields.';
+                return;
+            }
+
+            // Simulated payment process
+            // You would replace this with actual payment processing logic
+            setTimeout(function() {
+                document.getElementById('paymentStatus').textContent = 'Payment successful! Amount paid: $' + amount;
+                // Redirect to another page after payment success
+                window.location.href = 'bs.html'; // Change 'another-page.html' to the URL of the page you want to redirect to
+            }, 2000); // Simulating a delay of 2 seconds for processing
+        });
+    </script>
+</body>
+</html>
