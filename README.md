@@ -7,37 +7,43 @@ A front-end web application for booking bus tickets online. Users can view avail
 ## 🚀 Features
 
 - Homepage with navigation
-- List of buses with timings, prices, and locations
-- Travel date selection (using date input)
-- Basic seat layout and booking confirmation
-- Clean, responsive design using HTML, CSS, and JavaScript
+- User login and registration forms
+- Bus availability listing
+- Travel date and seat selection
+- Payment form with validation
+- Booking success confirmation
+- Fully responsive layout using HTML, CSS, and JavaScript
 
 ---
 
 ## 💡 Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript
-- GitHub Pages (for hosting)
+- HTML5  
+- CSS3  
+- JavaScript  
+- GitHub Pages (for deployment)
 
 ---
 
 ## 🌐 Live Demo
 
-🔗 [Click here to visit the live site](https://kiranmai-2005.github.io/BUS-TICKET-BOOKING-/)
+🔗 **[Visit the Live Website](https://kiranmai-2005.github.io/BUS-TICKET-BOOKING/)**
 
 > ⚠️ **Note:** This is a front-end prototype. Backend/database integration is not included.
 
 ---
 
-## 📌 Future Enhancements
+## 📌 File Structure Overview
 
-- Backend integration with database (Node.js/Firebase)
-- Real-time seat availability
-- Search/filter buses by time, route, or price
-- Ticket download/email confirmation
-- Admin panel for adding buses or managing bookings
+| Page                     | Purpose                                 |
+|--------------------------|-----------------------------------------|
+| `index.html`             | Home page                               |
+| `login.html`             | Login form                              |
+| `register.html`          | User registration form                  |
+| `bus-list.html`          | Show available buses                    |
+| `seat-selection.html`    | Seat selection page                     |
+| `payment.html`           | Payment form                            |
+| `booking-success.html`   | Booking confirmation page               |
 
 ---
 
