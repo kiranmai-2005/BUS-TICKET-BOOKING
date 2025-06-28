@@ -48,4 +48,4 @@ A front-end web application for booking bus tickets online. Users can view avail
 
 ---
 
-Feel free to fork this repo, suggest improvements, or use it as a starting point for your own bus booking system!
+
